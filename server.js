@@ -13,7 +13,8 @@ const { exit } = require('process')
 
 // Use minimist to process one argument `--port=` on the command line after `node server.js`.
 
-const port = process.env.port || 3000
+var argv = process.argv.slice(2);
+const port = argv || 3000
 
 // Define allowed argument name 'port'.
 
@@ -27,7 +28,6 @@ const port = process.env.port || 3000
 
 try {
     const data = fs.readFileSync('./www/index.html', 'utf8')
-    res.end(data)
 } catch (error) {
     console.error(error)
     return process.exit(1)

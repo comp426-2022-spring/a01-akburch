@@ -47,7 +47,7 @@ const server = http.createServer((req, res) => {
 
 if (err) {
     console.error(err)
-    return process.exit(1)
+    return
 }
 
 

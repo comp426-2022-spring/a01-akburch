@@ -30,7 +30,7 @@ try {
     const data = fs.readFileSync('./www/index.html', 'utf8')
 } catch (error) {
     console.error(error)
-    return process.exit(1)
+    return
 }
 
 

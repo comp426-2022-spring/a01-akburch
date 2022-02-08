@@ -8,13 +8,12 @@ const fs = require('fs')
 
 // Require minimist module (make sure you install this one via npm).
 
-const minimist = require('minimist')
-const { exit } = require('process')
-
 // Use minimist to process one argument `--port=` on the command line after `node server.js`.
 
-var argv = process.argv.slice(2);
-const port = argv || 3000
+const args = require('minimist')(process.argv.slice(2))
+args["port"]
+const port = args.port || process.env.port || 3000
+const { exit } = require('process')
 
 // Define allowed argument name 'port'.
 
@@ -26,13 +25,7 @@ const port = argv || 3000
 // The function must read a file located at `./www/index.html` and do some stuff with it.
 // The stuff that should be inside this function is all below.
 
-try {
-    const data = fs.readFileSync('./www/index.html', 'utf8')
-} catch (error) {
-    console.error(error)
-    return
-}
-
+fs.readFile('./www/index.html', 'utf8', (err, data) => {})
 
 // If there is an error, put it on the console error, return, and exit with error code 1. 
 // Do not be nice about exiting.
@@ -51,6 +44,11 @@ const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'text/html')
     res.end(data)
 })
+
+if (err) {
+    console.error(err)
+    return process.exit(1)
+}
 
 
 // Start the `server` const listening on the port defined by argument in your `port` const. 
